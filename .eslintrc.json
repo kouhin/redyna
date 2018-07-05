@@ -1,0 +1,20 @@
+{
+  "root": true,
+  "parser": "babel-eslint",
+  "extends": [
+    "eslint-config-airbnb",
+    "plugin:prettier/recommended"
+  ],
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "plugins": [
+    "import",
+    "babel"
+  ],
+  "rules": {
+    "react/forbid-prop-types": 0,
+    "react/jsx-filename-extension": 0
+  }
+}
