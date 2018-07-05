@@ -1,7 +1,7 @@
 {
   "name": "redyna",
   "version": "0.0.3",
-  "description": "Register/unregister reducers for redux.",
+  "description": "Add/remove dynamic reducers for redux.",
   "main": "lib/index.js",
   "module": "es/index.js",
   "sideEffects": false,

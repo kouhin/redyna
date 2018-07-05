@@ -2,13 +2,13 @@
 
 Re[dux] Dyna[mic]
 
-Register / Unregister reducer for redux.
+Add / remove dynamic reducer for redux.
 
 ## Usage
 
 ```js
 import { createStore } from 'redux';
-import { enhanceWithRedyna, registerReducer, unregisterReducer } from 'redyna';
+import { enhanceWithRedyna, addReducer, removeReducer } from 'redyna';
 
 function counter(state = { num: 0 }, action) {
   switch (action.type) {
@@ -43,8 +43,8 @@ function newReducer(state = {}, action) {
   return state;
 }
 
-// Register newReducer
-store.dispatch(registerReducer(newReducer));
+// Add a newReducer
+store.dispatch(addReducer(newReducer));
 
 store.dispatch({ type: 'APPEND_HELLO' });
 // { num: 1, word: 'hello' }
@@ -52,8 +52,8 @@ store.dispatch({ type: 'APPEND_HELLO' });
 store.dispatch({ type: 'APPEND_HELLO' });
 // { num: 1, word: 'hello hello' }
 
-// Unregister newReducer
-store.dispatch(unregisterReducer(newReducer));
+// Remove newReducer
+store.dispatch(removeReducer(newReducer));
 
 store.dispatch({ type: 'APPEND_HELLO' });
 // { num: 1, word: 'hello hello' }
@@ -67,15 +67,31 @@ store.dispatch({ type: 'APPEND_HELLO' });
 
 Enhance createStore with redyna.
 
-### registerReducer(reducer: Function)
+Usage:
+
+``` js
+const store = enhanceWithRedyna(createStore)(reducer, initState, enhancer);
+```
+
+### addReducer(reducer: Function)
 
 Create a common redux action for registering reducer (Make sure reducer is singleton).
 
+Usage:
 
-### unregisterReducer(reducer: Function)
+``` js
+store.dispatch(addReducer(reducer));
+```
+
+### removeReducer(reducer: Function)
 
 Create a common redux action for unregistering reducer (Make sure reducer is singleton).
 
+Usage:
+
+``` js
+store.dispatch(removeReducer(reducer));
+```
 
 ## LICENSE
 

@@ -1,9 +1,5 @@
 import { createStore } from 'redux';
-import {
-  enhanceWithRedyna,
-  registerReducer,
-  unregisterReducer
-} from '../src/index';
+import { enhanceWithRedyna, addReducer, removeReducer } from '../src/index';
 
 function counter(state = { num: 0 }, action) {
   switch (action.type) {
@@ -38,14 +34,14 @@ test('Register and unregister reducer', () => {
     return state;
   }
 
-  store.dispatch(registerReducer(newReducer));
+  store.dispatch(addReducer(newReducer));
   store.dispatch({ type: 'APPEND_HELLO' });
   expect(store.getState()).toEqual({ num: 1, word: 'hello' });
 
   store.dispatch({ type: 'APPEND_HELLO' });
   expect(store.getState()).toEqual({ num: 1, word: 'hello hello' });
 
-  store.dispatch(unregisterReducer(newReducer));
+  store.dispatch(removeReducer(newReducer));
   store.dispatch({ type: 'APPEND_HELLO' });
   expect(store.getState()).toEqual({ num: 1, word: 'hello hello' });
 });
