@@ -1,6 +1,6 @@
 {
   "name": "redyna",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "Add/remove dynamic reducers for redux.",
   "main": "lib/index.js",
   "module": "es/index.js",
