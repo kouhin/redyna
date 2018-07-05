@@ -3,7 +3,8 @@
   "parser": "babel-eslint",
   "extends": [
     "eslint-config-airbnb",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "plugin:jest/recommended"
   ],
   "env": {
     "browser": true,
@@ -11,7 +12,8 @@
   },
   "plugins": [
     "import",
-    "babel"
+    "babel",
+    "jest"
   ],
   "rules": {
     "react/forbid-prop-types": 0,

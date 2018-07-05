@@ -8,9 +8,7 @@ Register / Unregister reducer for redux.
 
 ```js
 import { createStore } from 'redux';
-import { enhanceWithRedyna, registerReducer } from 'redyna';
-
-const store = enhanceWithRedyna(createStore);
+import { enhanceWithRedyna, registerReducer, unregisterReducer } from 'redyna';
 
 function counter(state = { num: 0 }, action) {
   switch (action.type) {
@@ -27,6 +25,8 @@ function counter(state = { num: 0 }, action) {
   }
 }
 
+const store = enhanceWithRedyna(createStore);
+
 store.dispatch({ type: 'INCREMENT' })
 // { num: 1 }
 
@@ -36,18 +36,28 @@ store.dispatch({ type: 'APPEND_HELLO' });
 function newReducer(state = {}, action) {
   if (action.type === 'APPEND_HELLO') {
     return {
-      word: [state.word || '', 'hello'].join(' '),
+      ...state,
+      word: [state.word || '', 'hello'].filter(x => x).join(' ')
     };
   }
   return state;
 }
 
+// Register newReducer
 store.dispatch(registerReducer(newReducer));
 
 store.dispatch({ type: 'APPEND_HELLO' });
 // { num: 1, word: 'hello' }
+
 store.dispatch({ type: 'APPEND_HELLO' });
 // { num: 1, word: 'hello hello' }
+
+// Unregister newReducer
+store.dispatch(unregisterReducer(newReducer));
+
+store.dispatch({ type: 'APPEND_HELLO' });
+// { num: 1, word: 'hello hello' }
+
 
 ```
 

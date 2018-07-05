@@ -1,21 +1,21 @@
 import { REGISTER_REDUCER, UNREGISTER_REDUCER } from './actions';
 
-const compose = (...fns) =>
-  fns.reduceRight(
-    (prevFn, nextFn) => (...args) => nextFn(prevFn(...args)),
-    value => value
-  );
+const compose = reducers => (state, action) =>
+  reducers.reduce((prevState, reducer) => reducer(prevState, action), state);
 
 export default function enhanceWithRedyna(createStore) {
   return (reducer, ...args) => {
     let reducers = [reducer];
     const store = createStore(reducer, ...args);
-    const next = store.dispatch();
+    const next = store.dispatch;
     store.dispatch = action => {
       if (typeof action !== 'object') {
         return next(action);
       }
       const { type, payload } = action;
+      if (typeof payload !== 'function') {
+        return next(action);
+      }
       switch (type) {
         case REGISTER_REDUCER: {
           const idx = reducers.indexOf(payload);
