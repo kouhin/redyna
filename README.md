@@ -25,7 +25,7 @@ function counter(state = { num: 0 }, action) {
   }
 }
 
-const store = enhanceWithRedyna(createStore);
+const store = enhanceWithRedyna(createStore)(counter);
 
 store.dispatch({ type: 'INCREMENT' })
 // { num: 1 }
